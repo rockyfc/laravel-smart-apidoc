@@ -1,0 +1,20 @@
+//请在RouteServiceProvider 类的 boot 方法中设置app
+public function boot(){
+    parent::boot();
+
+    //给sdk绑定域名，appId，appSecret
+    Client::setApp('http://xxxx.com', '11111', '22222');
+}
+
+//调用接口示例
+$rest = new {{ rest_class }};
+{{ set_header_params }}
+{{ set_query_params }}
+{{ set_body_params }}
+
+$response = (new Client($rest))
+            ->send()
+            ->responseArrayData();
+
+print_r($response);
+
