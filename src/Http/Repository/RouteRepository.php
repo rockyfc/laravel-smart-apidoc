@@ -3,6 +3,7 @@
 namespace Smart\ApiDoc\Http\Repository;
 
 use ReflectionException;
+use Smart\ApiDoc\Services\ConfigService;
 use Smart\ApiDoc\Services\SdkDemoService;
 use Smart\Common\Exceptions\ResourceMissDataException;
 use Smart\Common\Helpers\MarkdownCreator;
@@ -153,7 +154,8 @@ class RouteRepository
      */
     protected function mdFilesConfig()
     {
-        return config('doc.mdFiles', ['system' => false, 'custom' => []]);
+        $files = ConfigService::mdFiles();
+        return $files?$files:['system' => false, 'custom' => []];
     }
 
     /**

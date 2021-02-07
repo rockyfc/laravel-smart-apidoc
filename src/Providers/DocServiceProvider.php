@@ -5,62 +5,51 @@ namespace Smart\ApiDoc\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Smart\ApiDoc\Console\InstallCommand;
+use Smart\ApiDoc\Services\ConfigService;
 
 class DocServiceProvider extends ServiceProvider
 {
     protected $namespace = 'Smart\ApiDoc\Http\Controllers';
 
     /**
-     * Bootstrap any package services.
+     * 启动
      */
     public function boot()
     {
-        if (!config('doc.enabled')) {
+        if (!ConfigService::enabled()) {
             return;
         }
-
-        //Route::middlewareGroup('doc', config('doc.middleware', []));
 
         $this->registerRoutes();
         $this->registerPublishing();
         $this->registerViews();
-
-        /*$this->loadViewsFrom(
-            __DIR__ . '/../../resources/views',
-            'doc'
-        );*/
     }
 
+    /**
+     * 注册服务
+     */
     public function register()
     {
-        if (!$this->app->runningInConsole()) {
-            $this->mergeConfigFrom(
-                __DIR__ . '/../../config/doc.php',
-                'doc'
-            );
-        }
+        $this->mergeConfigFrom($this->configFile(), ConfigService::key());
 
         $this->registerCommands();
-
-        /*$this->commands([
-            InstallCommand::class,
-        ]);*/
     }
+
 
     /**
      * 注册可以作为发布的包
      */
     protected function registerPublishing()
     {
-        if ($this->app->runningInConsole()) {
+        //if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../../public' => public_path('vendor/doc'),
+                __DIR__ . '/../../public' => public_path('vendor/smart'),
             ], 'doc-assets');
 
             $this->publishes([
-                __DIR__ . '/../../config/doc.php' => config_path('doc.php'),
+                $this->configFile() => config_path('smart-doc.php'),
             ], 'doc-config');
-        }
+        //}
     }
 
     /**
@@ -69,27 +58,33 @@ class DocServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__ . '/../../routes/doc.php');
+            $this->loadRoutesFrom($this->routeFile());
         });
     }
 
+    /**
+     * 注册命令
+     */
     protected function registerCommands()
     {
-        if ($this->app->runningInConsole()) {
+        //if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
             ]);
-        }
+        //}
     }
 
+    /**
+     * 注册试图文件
+     */
     protected function registerViews()
     {
-        if (!$this->app->runningInConsole()) {
+        //if (!$this->app->runningInConsole()) {
             $this->loadViewsFrom(
                 __DIR__ . '/../../resources/views',
                 'doc'
             );
-        }
+        //}
     }
 
     /**
@@ -97,13 +92,30 @@ class DocServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    private function routeConfiguration()
+    protected function routeConfiguration()
     {
         return [
-            'domain' => config('doc.domain', null),
+            'domain' => ConfigService::domain(),
             'namespace' => 'Smart\ApiDoc\Http\Controllers',
-            'prefix' => config('doc.prefix'),
+            'prefix' => ConfigService::prefix(),
             'middleware' => 'web',
         ];
     }
+
+    /**
+     * @return string
+     */
+    protected function configFile()
+    {
+        return __DIR__ . '/../../config/smart-doc.php';
+    }
+
+    /**
+     * @return string
+     */
+    protected function routeFile()
+    {
+        return __DIR__ . '/../../routes/smart-doc.php';
+    }
+
 }
