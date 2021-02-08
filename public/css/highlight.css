@@ -4,7 +4,7 @@
 {
 	font-family: "Courier New" , Courier, mono;
 	font-size: 12px;
-	background-color: #FAFAFA; 
+	background-color: #FAFAFA;
 	border: 1px solid #D1D7DC;
 	width: 99%;
 	overflow: auto;
@@ -83,7 +83,7 @@
 
 /* Additional modifications when in print-view */
 
-.dp-highlighter.printing 
+.dp-highlighter.printing
 {
 	border: none;
 }
