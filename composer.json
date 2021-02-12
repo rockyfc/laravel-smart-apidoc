@@ -29,7 +29,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Smart\\ApiDoc\\DocServiceProvider"
+                "Smart\\ApiDoc\\Providers\\DocServiceProvider"
             ]
         }
     },

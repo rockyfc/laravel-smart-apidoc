@@ -38,15 +38,17 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand " href="#">
-                        <img alt="Brand" height="25" src="{{asset('images/logo.png')}}">
+                        @if(file_exists(public_path('images/logo.png')))
+                            <img alt="Brand" height="25" src="{{asset('images/logo.png')}}">
+                        @endif
                     </a>
 
                 </div>
 
 
                 <p class="navbar-text navbar-right" style="padding-right: 10px;">
-                    <a href="{{route('gii.index')}}" class="navbar-link">GII </a>
-                    <a href="#" class="navbar-link">欢迎使用 </a>
+                    <a href="/smart-gii" class="navbar-link">GII </a>
+                    <a href="javascript:;" class="navbar-link">欢迎使用 </a>
                 </p>
             </div>
         </nav>
