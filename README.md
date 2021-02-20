@@ -13,18 +13,13 @@
 ###安装方法
 
 命令行执行：
-```
+```shell
 composer require rockyfc/laravel-smart-apidoc
 ```
 
-composer完成后，在`config/app.php`配置文件中的`providers`的最后一行，添加如下代码：
-
-```
-\Smart\ApiDoc\Providers\DocServiceProvider::class
-```
 
 在命令行执行如下命令：
-```$xslt
+```shell
 php artisan smart:install-doc
 ```
 
