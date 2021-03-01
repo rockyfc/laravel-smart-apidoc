@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use ReflectionException;
 use Smart\ApiDoc\Http\Repository\RouteRepository;
 use Smart\Common\Exceptions\ResourceMissDataException;
+use Smart\Common\Helpers\Parser;
 use Smart\Common\Services\DocService;
 
 class RouteController extends Controller
@@ -46,8 +47,8 @@ class RouteController extends Controller
      * 根据关键字查找action
      *
      * @param Request $request
-     * @throws ReflectionException
      * @return View
+     * @throws ReflectionException
      */
     public function filter(Request $request)
     {
@@ -66,8 +67,8 @@ class RouteController extends Controller
     }
 
     /**
-     * @throws ReflectionException
      * @return View
+     * @throws ReflectionException
      */
     public function controllers()
     {
@@ -80,9 +81,9 @@ class RouteController extends Controller
 
     /**
      * @param Request $request
-     * @throws ReflectionException
-     * @throws ResourceMissDataException
      * @return View
+     * @throws ResourceMissDataException
+     * @throws ReflectionException
      */
     public function actionsByController(Request $request)
     {
@@ -103,8 +104,8 @@ class RouteController extends Controller
     /**
      * 显示接口详情
      * @param Request $request
-     * @throws ReflectionException|ResourceMissDataException
      * @return View
+     * @throws ReflectionException|ResourceMissDataException
      */
     public function view(Request $request)
     {
@@ -119,9 +120,9 @@ class RouteController extends Controller
 
     /**
      * @param Request $request
-     * @throws ReflectionException
-     * @throws ResourceMissDataException
      * @return string
+     * @throws ResourceMissDataException
+     * @throws ReflectionException
      */
     public function markdown(Request $request)
     {
@@ -133,9 +134,9 @@ class RouteController extends Controller
 
     /**
      * @param Request $request
-     * @throws ReflectionException
-     * @throws ResourceMissDataException
      * @return View
+     * @throws ResourceMissDataException
+     * @throws ReflectionException
      */
     public function resources(Request $request)
     {
@@ -155,8 +156,9 @@ class RouteController extends Controller
     {
         $files = array_column($this->files, null, 'key');
 
+        $Parser = new Parser;
         return view('doc::route.file', [
-            'content' => file_get_contents($files[$file]['path']),
+            'content' => $Parser->makeHtml(file_get_contents($files[$file]['path'])),
         ]);
     }
 }

@@ -41,14 +41,6 @@ return [
             'comment' => '东八区时间戳，与服务器时间间隔不能超过两分钟',
             'options' => [],
         ],
-        'format' => [
-            'required' => false,
-            'isRelation' => false,
-            'type' => 'string',
-            'default' => 'json',
-            'comment' => '返回值格式，目前仅支持json',
-            'options' => ['json'],
-        ],
         'sign' => [
             'required' => true,
             'isRelation' => false,
