@@ -9,6 +9,9 @@ return [
 
     'prefix' => env('DOC_PREFIX', 'smart-doc'),
 
+    //路由格式，可选值为 "underline" 或者 "snake"
+    'route_format' => env('DOC_ROUTE_FORMAT','underline'),//
+
     'query' => [
         'fieldsName' => env('DOC_QUERY_FIELDS_NAME', 'fields'),
         'filterName' => env('DOC_QUERY_FILTER_NAME', 'filter'),
