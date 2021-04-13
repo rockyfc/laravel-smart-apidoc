@@ -128,7 +128,7 @@ class RouteRepository
     {
         $files = [];
         foreach ($this->mdFilesConfig()['custom'] as $file) {
-            $files[] = $this->formatFile($file);
+            $files[] = $this->formatFileArray($file);
         }
 
         return $files;

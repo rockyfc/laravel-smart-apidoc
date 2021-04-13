@@ -74,7 +74,8 @@ class ConfigService
         return config(self::key() . '.middleware');
     }
 
-    public static function routeFormat(){
+    public static function routeFormat()
+    {
         return config(self::key() . '.route_format');
     }
 
