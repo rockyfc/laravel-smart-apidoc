@@ -31,7 +31,13 @@
 
             <tr>
                 <td>{{$name}}</td>
-                <td>{{$column['type']}}</td>
+                <td>
+                    @if(class_exists($column['type']) and $column['type'] instanceof Illuminate\Http\Resources\Json\JsonResource)
+                        <a href="{{route('doc.route.resources',['class'=>$column['type']])}}">{{$column['type']}}</a>
+                    @else
+                        {{$column['type']}}
+                    @endif
+                </td>
                 <td>{{implode(',',$column['options'])}}</td>
                 <td>{!! $column['comment'] !!}</td>
             </tr>
