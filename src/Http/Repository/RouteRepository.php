@@ -155,7 +155,7 @@ class RouteRepository
     protected function mdFilesConfig()
     {
         $files = ConfigService::mdFiles();
-        return $files?$files:['system' => false, 'custom' => []];
+        return $files ? $files : ['system' => false, 'custom' => []];
     }
 
     /**

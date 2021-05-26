@@ -78,6 +78,4 @@ class ConfigService
     {
         return config(self::key() . '.route_format');
     }
-
-
 }

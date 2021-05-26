@@ -42,11 +42,11 @@ class DocServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         //if ($this->app->runningInConsole()) {
-            $this->publishes([
+        $this->publishes([
                 __DIR__ . '/../../public' => public_path('vendor/smart'),
             ], 'doc-assets');
 
-            $this->publishes([
+        $this->publishes([
                 $this->configFile() => config_path('smart-doc.php'),
             ], 'doc-config');
         //}
@@ -68,7 +68,7 @@ class DocServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         //if ($this->app->runningInConsole()) {
-            $this->commands([
+        $this->commands([
                 InstallCommand::class,
             ]);
         //}
@@ -80,10 +80,10 @@ class DocServiceProvider extends ServiceProvider
     protected function registerViews()
     {
         //if (!$this->app->runningInConsole()) {
-            $this->loadViewsFrom(
-                __DIR__ . '/../../resources/views',
-                'doc'
-            );
+        $this->loadViewsFrom(
+            __DIR__ . '/../../resources/views',
+            'doc'
+        );
         //}
     }
 
@@ -117,5 +117,4 @@ class DocServiceProvider extends ServiceProvider
     {
         return __DIR__ . '/../../routes/smart-doc.php';
     }
-
 }

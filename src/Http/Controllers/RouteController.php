@@ -156,7 +156,7 @@ class RouteController extends Controller
     {
         $files = array_column($this->files, null, 'key');
 
-        $Parser = new Parser;
+        $Parser = new Parser();
         return view('doc::route.file', [
             'content' => $Parser->makeHtml(file_get_contents($files[$file]['path'])),
         ]);
