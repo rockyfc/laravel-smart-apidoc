@@ -78,4 +78,10 @@ class ConfigService
     {
         return config(self::key() . '.route_format');
     }
+
+    public static function modules()
+    {
+        return config(self::key() . '.modules');
+
+    }
 }

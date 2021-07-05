@@ -8,14 +8,36 @@
         <div class="tab-pane fade in active" style="padding:10px;" id="home">
 
             <p><a href="{{route('doc.route.filter')}}">全部</a></p>
-            @foreach($controllers as $comment)
+            {{--@foreach($controllers as $comment)
                 <p>
                     <a title="{{$comment['controller']}}"
                        href="{{route('doc.route.filter',['keyword'=>$comment['controller']])}}">
                         {{$comment['title']}}
                     </a>
                 </p>
-            @endforeach
+            @endforeach--}}
+            <style>
+                .list-unstyled ul {
+                    display: block;
+                }
+            </style>
+
+            <ul class="list-unstyled">
+                @foreach($menus as $module)
+                    <li><a>{{$module['name']}}</a>
+                        <ul>
+                            @foreach($module['routes'] as $controller)
+                                <li>
+                                    <a title="{{$controllers[$controller]['controller']}}"
+                                       href="{{route('doc.route.filter',['keyword'=>$controllers[$controller]['controller']])}}">
+                                        {{$controllers[$controller]['title']}}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endforeach
+            </ul>
 
 
         </div>

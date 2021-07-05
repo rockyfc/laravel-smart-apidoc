@@ -4,9 +4,11 @@ namespace Smart\ApiDoc\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use ReflectionException;
 use Smart\ApiDoc\Http\Repository\RouteRepository;
+use Smart\ApiDoc\Services\ConfigService;
 use Smart\Common\Exceptions\ResourceMissDataException;
 use Smart\Common\Helpers\Parser;
 use Smart\Common\Services\DocService;
@@ -39,9 +41,12 @@ class RouteController extends Controller
         $this->service = $service;
         $this->repository = $repository;
 
+
+        view()->share('menus', $this->sliceByModule());
         view()->share('controllers', $this->service->controllerComments());
         view()->share('files', $this->files = $repository->getMdFiles());
     }
+
 
     /**
      * 根据关键字查找action
@@ -160,5 +165,33 @@ class RouteController extends Controller
         return view('doc::route.file', [
             'content' => $Parser->makeHtml(file_get_contents($files[$file]['path'])),
         ]);
+    }
+
+    /**
+     * 按模块拆分路由
+     * @return array
+     */
+    protected function sliceByModule()
+    {
+
+        $modules = [];
+        foreach (ConfigService::modules() as $module) {
+            $row = $module;
+            foreach ($this->service->validRoutes() as $route) {
+
+                if (!isset($module['uriPrefix'])) {
+                    continue;
+                }
+
+                if (Str::startsWith($route->getName(), $module['uriPrefix'])) {
+                    $controller = get_class($route->getController());
+                    $row['routes'][$controller] = $controller;
+                }
+
+            }
+            $modules[] = $row;
+        }
+
+        return $modules;
     }
 }

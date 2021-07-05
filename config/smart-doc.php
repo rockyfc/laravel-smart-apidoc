@@ -65,4 +65,18 @@ return [
     'middleware' => [
         'web',
     ],
+
+    //文档左侧菜单按模块分组
+    'modules' => [
+        //默认模块
+        [
+            'name'=>'默认模块',
+            'uriPrefix'=>'cate',
+        ],
+        //其他模块
+        /*[
+            'name'=>'其他模块',
+            'uriPrefix'=>'api.other',
+        ],*/
+    ]
 ];
