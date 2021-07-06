@@ -26,11 +26,11 @@
                 @foreach($menus as $module)
                     <li><a>{{$module['name']}}</a>
                         <ul>
-                            @foreach($module['routes'] as $controller)
+                            @foreach($module['routes'] as $ctrlName=>$routeName)
                                 <li>
-                                    <a title="{{$controllers[$controller]['controller']}}"
-                                       href="{{route('doc.route.filter',['keyword'=>$controllers[$controller]['controller']])}}">
-                                        {{$controllers[$controller]['title']}}
+                                    <a title="{{$controllers[$ctrlName]['controller']}}"
+                                       href="{{route('doc.route.filter',['keyword'=>$routeName])}}">
+                                        {{$controllers[$ctrlName]['title']}}
                                     </a>
                                 </li>
                             @endforeach

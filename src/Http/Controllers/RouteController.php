@@ -41,7 +41,7 @@ class RouteController extends Controller
         $this->service = $service;
         $this->repository = $repository;
 
-
+        //print_r($this->sliceByModule());
         view()->share('menus', $this->sliceByModule());
         view()->share('controllers', $this->service->controllerComments());
         view()->share('files', $this->files = $repository->getMdFiles());
@@ -64,7 +64,7 @@ class RouteController extends Controller
         if ($this->service->error) {
             $request->session()->flash('_errors', $this->service->error);
         }
-        //print_r($this->service->error);exit;
+        //print_r($actions);exit;
 
         return view('doc::route.filter', [
             'actions' => $actions,
@@ -185,7 +185,7 @@ class RouteController extends Controller
 
                 if (Str::startsWith($route->getName(), $module['uriPrefix'])) {
                     $controller = get_class($route->getController());
-                    $row['routes'][$controller] = $controller;
+                    $row['routes'][$controller] = substr($route->getName(),0,strrpos($route->getName(),'.'));
                 }
 
             }
