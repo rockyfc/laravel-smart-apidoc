@@ -48,7 +48,7 @@
 
     <h5>关联对象：</h5>
     @foreach($data['relationsFields'] as $attribute=>$column)
-        <a href="{{route('doc.route.resources',['class'=>$column['type']])}}"><strong>{{$attribute}}</strong></a>
+        <a href="{{route('doc.route.resources',['class'=>$column['type']])}}"><strong>{{$attribute}}</strong></a>：{{$column['comment']}}<br/>
     @endforeach
 
     <p class="text-right">

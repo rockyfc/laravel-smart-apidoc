@@ -26,7 +26,7 @@
                             @php
                                 $tmp = [];
                                 foreach($column['options'] as $attribute=>$option){
-                                    $tmp[] = $option = '<a href="'.route('doc.route.resources',['class'=>$option['type']]).'">'.$attribute.'</a>';
+                                    $tmp[] = $option = '<a title="'.(!empty($option['comment'])?$option['comment']:$option['type']).'" href="'.route('doc.route.resources',['class'=>$option['type']]).'">'.$attribute.'</a>';
                                 }
                             @endphp
                             {!! implode(', ',$tmp) !!}
