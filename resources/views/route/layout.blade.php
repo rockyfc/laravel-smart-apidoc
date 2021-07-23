@@ -7,8 +7,8 @@
     <script src="{{ asset('vendor/smart/js/bootstrap.min.js') }}"></script>
 
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+          href="{{ asset('vendor/smart/css/default.min.css') }}">
+    <script src="{{ asset('vendor/smart/js/highlight.min.js') }}"></script>
 
     <style>
         .label-default {
