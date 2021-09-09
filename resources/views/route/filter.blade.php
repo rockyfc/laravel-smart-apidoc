@@ -6,6 +6,7 @@
         <form method="GET" action="{{route('doc.route.filter')}}">
             <div class="form-group">
                 <div class="col-sm-8">
+                    <input type="hidden" name="module" value="{{request()->input('module')}}">
                     <label for="keyword" class="sr-only">关键字</label>
                     <input type="text" class="form-control" name="keyword" id="keyword"
                            value="{{request()->input('keyword')}}" placeholder="输入关键字，标题、路由地址、作者、Controller、Action等">
@@ -25,9 +26,9 @@
         </form>
         <p>&nbsp;</p>
     </div>
-{{--
-    <p class="text-right">共有{{count($actions)}}个路由。</p>
---}}
+    {{--
+        <p class="text-right">共有{{count($actions)}}个路由。</p>
+    --}}
     <table class="table table-hover ">
         <thead>
         <tr>

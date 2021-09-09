@@ -29,7 +29,7 @@
                             @foreach($module['routes'] as $ctrlName=>$routeName)
                                 <li>
                                     <a title="{{$controllers[$ctrlName]['controller']}}"
-                                       href="{{route('doc.route.filter',['keyword'=>$routeName])}}">
+                                       href="{{route('doc.route.filter',['keyword'=>$controllers[$ctrlName]['title'],'module'=>$module['uriPrefix']])}}">
                                         {{$controllers[$ctrlName]['title']}}
                                     </a>
                                 </li>

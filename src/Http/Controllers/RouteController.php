@@ -58,8 +58,9 @@ class RouteController extends Controller
     public function filter(Request $request)
     {
         $keyword = $request->input('keyword');
+        $module = $request->input('module');
         $keyword = addslashes($keyword);
-        $actions = $this->service->actions($keyword);
+        $actions = $this->service->actions($keyword,$module);
 
         if ($this->service->error) {
             $request->session()->flash('_errors', $this->service->error);
