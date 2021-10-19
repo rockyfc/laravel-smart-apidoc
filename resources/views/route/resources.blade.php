@@ -38,7 +38,7 @@
                         {{$column['type']}}
                     @endif
                 </td>
-                <td>{{implode(',',$column['options'])}}</td>
+                <td>{{implode(', ',$column['options'])}}</td>
                 <td>{!! $column['comment'] !!}</td>
             </tr>
         @endforeach
