@@ -35,14 +35,14 @@ class RouteRepository
     }
 
     /**
-     * @param $name
+     * @param $routeName
      * @throws ResourceMissDataException
      * @throws ReflectionException
      * @return array
      */
-    public function actionWithSdkDemo($name)
+    public function actionWithSdkDemo($routeName)
     {
-        $action = $this->service->action($name, $route);
+        $action = $this->service->action($routeName, $route);
         //echo (new UriParserService($route))->version();exit;
         //dd($action);
         $service = new SdkDemoService($route);

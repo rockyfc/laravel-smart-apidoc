@@ -62,7 +62,7 @@
                     {!! !empty($a = str_ireplace(' ','<br/>',$action['created_at']))?$a:'- -' !!}
                 </td>
                 <td>
-                    <a href="{{route('doc.route.view',['name'=>$action['action']])}}">详情</a>
+                    <a href="{{route('doc.route.view',['name'=>$action['route_name']])}}">详情</a>
                     {{--
                                             <a href="{{route('route.actions',['name'=>$action['controller']['controller']])}}">相关</a>
                     --}}
