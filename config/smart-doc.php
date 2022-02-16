@@ -28,7 +28,7 @@ return [
 
     //接口公共参数
     'commonParams' => [
-        'app_id' => [
+        '_app_id' => [
             'required' => true,
             'isRelation' => false,
             'type' => 'string',
@@ -36,7 +36,7 @@ return [
             'comment' => 'appId',
             'options' => [],
         ],
-        'time' => [
+        '_time' => [
             'required' => true,
             'isRelation' => false,
             'type' => 'string',
@@ -44,7 +44,7 @@ return [
             'comment' => '东八区时间戳，与服务器时间间隔不能超过两分钟',
             'options' => [],
         ],
-        'sign' => [
+        '_sign' => [
             'required' => true,
             'isRelation' => false,
             'type' => 'string',
@@ -52,7 +52,7 @@ return [
             'comment' => '接口签名',
             'options' => [],
         ],
-        'sign_type' => [
+        '_sign_type' => [
             'required' => false,
             'isRelation' => false,
             'type' => 'string',
