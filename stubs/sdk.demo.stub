@@ -12,9 +12,18 @@ $rest = new {{ rest_class }};
 {{ set_query_params }}
 {{ set_body_params }}
 
-$response = (new Client($rest))
-            ->send()
-            ->responseArrayData();
+$client = (new Client($rest))
+            ->send();
 
-print_r($response);
+//执行成功，返回结果数据
+if( $client->isSuccessful() ){
+    $response = $client->responseArrayData();
+    print_r($response);
+    return $response;
+}
+
+// 打印错误信息数组
+print_r($client->getArrayErrorMessage());
+
+
 
