@@ -26,6 +26,7 @@
                 @foreach($menus as $module)
                     <li><a>{{$module['name']}}</a>
                         <ul>
+                            @if(isset($module['routes']))
                             @foreach($module['routes'] as $ctrlName=>$routeName)
                                 <li>
                                     <a title="{{$controllers[$ctrlName]['controller']}}"
@@ -34,6 +35,7 @@
                                     </a>
                                 </li>
                             @endforeach
+                            @endif
                         </ul>
                     </li>
                 @endforeach
