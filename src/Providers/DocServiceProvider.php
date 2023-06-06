@@ -35,21 +35,20 @@ class DocServiceProvider extends ServiceProvider
         $this->registerCommands();
     }
 
-
     /**
      * 注册可以作为发布的包
      */
     protected function registerPublishing()
     {
-        //if ($this->app->runningInConsole()) {
+        // if ($this->app->runningInConsole()) {
         $this->publishes([
-                __DIR__ . '/../../public' => public_path('vendor/smart'),
-            ], 'doc-assets');
+            __DIR__ . '/../../public' => public_path('vendor/smart'),
+        ], 'doc-assets');
 
         $this->publishes([
-                $this->configFile() => config_path('smart-doc.php'),
-            ], 'doc-config');
-        //}
+            $this->configFile() => config_path('smart-doc.php'),
+        ], 'doc-config');
+        // }
     }
 
     /**
@@ -67,11 +66,11 @@ class DocServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        //if ($this->app->runningInConsole()) {
+        // if ($this->app->runningInConsole()) {
         $this->commands([
-                InstallCommand::class,
-            ]);
-        //}
+            InstallCommand::class,
+        ]);
+        // }
     }
 
     /**
@@ -79,12 +78,12 @@ class DocServiceProvider extends ServiceProvider
      */
     protected function registerViews()
     {
-        //if (!$this->app->runningInConsole()) {
+        // if (!$this->app->runningInConsole()) {
         $this->loadViewsFrom(
             __DIR__ . '/../../resources/views',
             'doc'
         );
-        //}
+        // }
     }
 
     /**

@@ -9,8 +9,8 @@ return [
 
     'prefix' => env('DOC_PREFIX', 'smart-doc'),
 
-    //路由格式，可选值为 "underline" 或者 "snake"
-    'route_format' => env('DOC_ROUTE_FORMAT', 'underline'),//
+    // 路由格式，可选值为 "underline" 或者 "snake"
+    'route_format' => env('DOC_ROUTE_FORMAT', 'underline'),
 
     'query' => [
         'fieldsName' => env('DOC_QUERY_FIELDS_NAME', 'fields'),
@@ -20,13 +20,13 @@ return [
     ],
 
     'mdFiles' => [
-        'system' => true, //smart-doc系统内置的md文件
+        'system' => true, // smart-doc系统内置的md文件
         'custom' => [
-            //用户自定义的md文件地址。
+            // 用户自定义的md文件地址。
         ],
     ],
 
-    //接口公共参数
+    // 接口公共参数
     'commonParams' => [
         '_app_id' => [
             'required' => true,
@@ -66,17 +66,17 @@ return [
         'web',
     ],
 
-    //文档左侧菜单按模块分组
+    // 文档左侧菜单按模块分组
     'modules' => [
-        //默认模块
+        // 默认模块
         [
-            'name'=>'默认模块',
-            'uriPrefix'=>'cate',
+            'name' => '默认模块',
+            'uriPrefix' => 'cate',
         ],
-        //其他模块
+        // 其他模块
         /*[
             'name'=>'其他模块',
             'uriPrefix'=>'api.other',
         ],*/
-    ]
+    ],
 ];

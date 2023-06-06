@@ -82,6 +82,5 @@ class ConfigService
     public static function modules()
     {
         return config(self::key() . '.modules');
-
     }
 }

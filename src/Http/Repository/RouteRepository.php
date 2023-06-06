@@ -2,7 +2,6 @@
 
 namespace Smart\ApiDoc\Http\Repository;
 
-use ReflectionException;
 use Smart\ApiDoc\Services\ConfigService;
 use Smart\ApiDoc\Services\SdkDemoService;
 use Smart\Common\Exceptions\ResourceMissDataException;
@@ -26,7 +25,7 @@ class RouteRepository
     }
 
     /**
-     * @throws ReflectionException
+     * @throws \ReflectionException
      * @return array
      */
     public function controllers()
@@ -37,16 +36,16 @@ class RouteRepository
     /**
      * @param $routeName
      * @throws ResourceMissDataException
-     * @throws ReflectionException
+     * @throws \ReflectionException
      * @return array
      */
     public function actionWithSdkDemo($routeName)
     {
         $action = $this->service->action($routeName, $route);
-        //echo (new UriParserService($route))->version();exit;
-        //dd($action);
+        // echo (new UriParserService($route))->version();exit;
+        // dd($action);
         $service = new SdkDemoService($route);
-        //$service->setHeaders();
+        // $service->setHeaders();
         if (isset($action['request']['input'])) {
             $service->setBodyParams((array)$action['request']['input']);
         }
@@ -73,7 +72,7 @@ class RouteRepository
      *
      * @param string $actionName
      * @throws ResourceMissDataException
-     * @throws ReflectionException
+     * @throws \ReflectionException
      * @return string
      */
     public function markdown(string $actionName)
@@ -114,7 +113,7 @@ class RouteRepository
         if ($this->mdFilesConfig()['system'] === false) {
             return [];
         }
-        //echo realpath(__DIR__ . '/../../../httpCode.README.MD');exit;
+        // echo realpath(__DIR__ . '/../../../httpCode.README.MD');exit;
 
         return [
             $this->formatFileArray(realpath(__DIR__ . '/../../../HttpCode.README.MD')),
@@ -155,6 +154,7 @@ class RouteRepository
     protected function mdFilesConfig()
     {
         $files = ConfigService::mdFiles();
+
         return $files ? $files : ['system' => false, 'custom' => []];
     }
 

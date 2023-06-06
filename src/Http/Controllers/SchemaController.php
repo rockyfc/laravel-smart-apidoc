@@ -4,7 +4,6 @@ namespace Smart\ApiDoc\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use ReflectionException;
 use Smart\ApiDoc\Http\Repository\RouteRepository;
 use Smart\Common\Exceptions\ResourceMissDataException;
 use Smart\Common\Services\DocService;
@@ -39,11 +38,11 @@ class SchemaController extends Controller
      */
     public function actions(Request $request)
     {
-        $name = $request->input('name') or die('miss action name param');
+        $name = $request->input('name') or exit('miss action name param');
 
         try {
             return $this->service->action($name);
-        } catch (ReflectionException $e) {
+        } catch (\ReflectionException $e) {
         } catch (ResourceMissDataException $e) {
         }
 

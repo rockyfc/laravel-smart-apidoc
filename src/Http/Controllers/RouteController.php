@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use ReflectionException;
 use Smart\ApiDoc\Http\Repository\RouteRepository;
 use Smart\ApiDoc\Services\ConfigService;
 use Smart\Common\Exceptions\ResourceMissDataException;
@@ -34,38 +33,37 @@ class RouteController extends Controller
      * RouteController constructor.
      * @param DocService $service
      * @param RouteRepository $repository
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     public function __construct(DocService $service, RouteRepository $repository)
     {
         $this->service = $service;
         $this->repository = $repository;
 
-        //print_r($this->sliceByModule());
+        // print_r($this->sliceByModule());
         view()->share('menus', $this->sliceByModule());
         view()->share('controllers', $this->service->controllerComments());
         view()->share('files', $this->files = $repository->getMdFiles());
     }
 
-
     /**
      * 根据关键字查找action
      *
      * @param Request $request
+     * @throws \ReflectionException
      * @return View
-     * @throws ReflectionException
      */
     public function filter(Request $request)
     {
         $keyword = $request->input('keyword');
         $module = $request->input('module');
         $keyword = addslashes($keyword);
-        $actions = $this->service->actions($keyword,$module);
+        $actions = $this->service->actions($keyword, $module);
 
         if ($this->service->error) {
             $request->session()->flash('_errors', $this->service->error);
         }
-        //print_r($actions);exit;
+        // print_r($actions);exit;
 
         return view('doc::route.filter', [
             'actions' => $actions,
@@ -73,8 +71,8 @@ class RouteController extends Controller
     }
 
     /**
+     * @throws \ReflectionException
      * @return View
-     * @throws ReflectionException
      */
     public function controllers()
     {
@@ -87,20 +85,20 @@ class RouteController extends Controller
 
     /**
      * @param Request $request
-     * @return View
      * @throws ResourceMissDataException
-     * @throws ReflectionException
+     * @throws \ReflectionException
+     * @return View
      */
     public function actionsByController(Request $request)
     {
-        $controllerName = $request->input('name') or die('error');
+        $controllerName = $request->input('name') or exit('error');
         $actions = $this->service->actionCommentsByController($controllerName);
 
         if ($this->service->error) {
             $request->session()->flash('_errors', $this->service->error);
         }
-        //print_r($actions);exit;
-        //print_r($this->service->controllerComment($controllerName));exit;
+        // print_r($actions);exit;
+        // print_r($this->service->controllerComment($controllerName));exit;
         return view('doc::route.controller-actions', [
             'actions' => $actions,
             'controller' => $this->service->controllerComment($controllerName),
@@ -110,15 +108,15 @@ class RouteController extends Controller
     /**
      * 显示接口详情
      * @param Request $request
+     * @throws \ReflectionException|ResourceMissDataException
      * @return View
-     * @throws ReflectionException|ResourceMissDataException
      */
     public function view(Request $request)
     {
-        $name = $request->input('name') or die('miss uri');
+        $name = $request->input('name') or exit('miss uri');
         $action = $this->repository->actionWithSdkDemo($name);
 
-        //print_r($action);exit;
+        // print_r($action);exit;
         return view('doc::route.view', [
             'action' => $action,
         ]);
@@ -126,13 +124,13 @@ class RouteController extends Controller
 
     /**
      * @param Request $request
-     * @return string
      * @throws ResourceMissDataException
-     * @throws ReflectionException
+     * @throws \ReflectionException
+     * @return string
      */
     public function markdown(Request $request)
     {
-        $name = $request->input('name') or die('miss uri');
+        $name = $request->input('name') or exit('miss uri');
         $content = $this->repository->markdown($name);
 
         return '<pre>' . $content . '</pre>';
@@ -140,9 +138,9 @@ class RouteController extends Controller
 
     /**
      * @param Request $request
-     * @return View
      * @throws ResourceMissDataException
-     * @throws ReflectionException
+     * @throws \ReflectionException
+     * @return View
      */
     public function resources(Request $request)
     {
@@ -163,6 +161,7 @@ class RouteController extends Controller
         $files = array_column($this->files, null, 'key');
 
         $Parser = new Parser();
+
         return view('doc::route.file', [
             'content' => $Parser->makeHtml(file_get_contents($files[$file]['path'])),
         ]);
@@ -174,21 +173,18 @@ class RouteController extends Controller
      */
     protected function sliceByModule()
     {
-
         $modules = [];
         foreach (ConfigService::modules() as $module) {
             $row = $module;
             foreach ($this->service->validRoutes() as $route) {
-
                 if (!isset($module['uriPrefix'])) {
                     continue;
                 }
 
                 if (Str::startsWith($route->getName(), $module['uriPrefix'])) {
                     $controller = get_class($route->getController());
-                    $row['routes'][$controller] = substr($route->getName(),0,strrpos($route->getName(),'.'));
+                    $row['routes'][$controller] = substr($route->getName(), 0, strrpos($route->getName(), '.'));
                 }
-
             }
             $modules[] = $row;
         }
